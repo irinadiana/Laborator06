@@ -88,6 +88,14 @@ public class SingleThreadedServerActivity extends Activity {
 				serverSocket = new ServerSocket(Constants.SERVER_PORT);
 				while (isRunning) {
 					Socket socket = serverSocket.accept();
+					try {
+						  Thread.sleep(3000);
+						} catch (InterruptedException interruptedException) {
+						  Log.e(Constants.TAG, interruptedException.getMessage());
+						  if (Constants.DEBUG) {
+						    interruptedException.printStackTrace();
+						  }
+						}
 					Log.v(Constants.TAG, "Connection opened with "+socket.getInetAddress()+":"+socket.getLocalPort());
 					PrintWriter printWriter = Utilities.getWriter(socket);
 					printWriter.println(serverTextEditText.getText().toString());
